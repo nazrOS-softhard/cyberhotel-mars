@@ -9,6 +9,9 @@ export default function Footer() {
           <p className="text-white/50 text-sm max-w-sm">
             Кибер-отель для тех, кто живёт в игре. Играй, отдыхай, побеждай.
           </p>
+          <p className="text-white/40 text-xs mt-3">
+  📍 Российская Федерация, г. Новодвинск, ул. 50-летия Октября, 46
+</p>
         </div>
         <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/60">
           <Link to="/rooms" className="hover:text-mars-red">Номера</Link>
