@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Rooms from './pages/Rooms';
 import GamingModule from './pages/GamingModule';
 import Services from './pages/Services';
+import ServiceDetail from './pages/ServiceDetail';
 import MenuPage from './pages/Menu';
 import About from './pages/About';
 import Gallery from './pages/Gallery';
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/gaming" element={<GamingModule />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/services/:id" element={<ServiceDetail />} />
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
