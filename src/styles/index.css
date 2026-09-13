@@ -11,8 +11,8 @@ body {
   @apply bg-mars-bg text-white font-body antialiased;
 }
 
-h1, h2, h3, .font-display {
-  @apply font-display;
+h1, h2, h3 {
+  font-family: "Russo One", sans-serif;
 }
 
 ::selection {
