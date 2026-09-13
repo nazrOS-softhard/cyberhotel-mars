@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  background-color: #0A0A0C;
+}
+
+body {
+  @apply bg-mars-bg text-white font-body antialiased;
+}
+
+h1, h2, h3, .font-display {
+  @apply font-display;
+}
+
+::selection {
+  background: #FF2A2A;
+  color: #0A0A0C;
+}
+
+.container-mars {
+  @apply mx-auto max-w-7xl px-5 md:px-10;
+}
+
+.card-mars {
+  @apply bg-mars-panel border border-mars-line rounded-md;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-mars-red text-black font-semibold px-6 py-3 rounded-sm hover:bg-red-500 transition-colors;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 border border-mars-line text-white px-6 py-3 rounded-sm hover:border-mars-red transition-colors;
+}
