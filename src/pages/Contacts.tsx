@@ -16,7 +16,7 @@ export default function Contacts() {
         <p className="text-white/50 mb-8">Свяжитесь с нами</p>
 
         <ul className="space-y-4 text-white/70 text-sm">
-          <li>📍 Москва, ул. Киберская, 13</li>
+          <li>📍  Российская Федерация, г. Новодвинск, ул. 50-летия Октября, 46</li>
           <li>📞 +7 (495) 123-45-67</li>
           <li>✉️ hello@mars-hotel.ru</li>
           <li>🕒 Круглосуточно</li>
