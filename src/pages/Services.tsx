@@ -10,13 +10,17 @@ export default function Services() {
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
         {services.map((s) => (
-          <div key={s.id} className="card-mars overflow-hidden">
+          <Link
+            to={`/services/${s.id}`}
+            key={s.id}
+            className="card-mars overflow-hidden block hover:border-mars-red transition-colors"
+          >
             <SmartImage query={s.imageQuery} alt={s.title} seed={s.id} className="w-full h-36 object-cover" />
             <div className="p-4">
               <div className="font-display text-sm mb-1">{s.title}</div>
               <div className="text-white/50 text-xs">{s.description}</div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
