@@ -26,6 +26,7 @@ export default function Partner() {
             Fitness Food Factory — это энергия, технологии и забота о себе.
             Функциональные напитки и продукты для активных людей, которые
             выбирают качество, движение и осознанный образ жизни.
+            https://fitnessfoodfactory.ru/
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
             {values.map((v) => (
