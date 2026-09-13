@@ -25,15 +25,7 @@ export default function Partner() {
           <p className="text-white/60 max-w-xl mb-8">
             Fitness Food Factory — это энергия, технологии и забота о себе.
             Функциональные напитки и продукты для активных людей, которые
-            выбирают качество, движение и осознанный образ жизни.{' '}
-            
-              href="https://fitnessfoodfactory.ru/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-fff-green underline underline-offset-2 hover:text-white"
-            >
-              fitnessfoodfactory.ru
-            </a>
+            выбирают качество, движение и осознанный образ жизни. <a href="https://fitnessfoodfactory.ru/" target="_blank" rel="noopener noreferrer" className="text-fff-green underline underline-offset-2 hover:text-white">fitnessfoodfactory.ru</a>
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
             {values.map((v) => (
