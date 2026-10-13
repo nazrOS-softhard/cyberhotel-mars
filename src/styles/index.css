@@ -35,3 +35,28 @@ h1, h2, h3 {
 .btn-outline {
   @apply inline-flex items-center justify-center gap-2 border border-mars-line text-white px-6 py-3 rounded-sm hover:border-mars-red transition-colors;
 }
+
+/* === HERO SLIDER === */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0A0A0C;
+  border: 1px solid #1F1F23;
+}
+
+.hero-slider__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.hero-slider__img.active {
+  opacity: 1;
+}
