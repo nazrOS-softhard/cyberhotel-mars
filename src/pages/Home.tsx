@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import HeroSlider from '../components/HeroSlider';
 import SmartImage from '../components/SmartImage';
 import { rooms } from '../data/rooms';
 
@@ -34,11 +35,8 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <SmartImage
-          query="cyberpunk gaming hotel room red neon interior"
-          alt="Кибер-отель МАРС"
-          className="rounded-md w-full h-80 md:h-[26rem] object-cover"
-        />
+
+        <HeroSlider />
       </section>
 
       <section className="container-mars pb-20">
