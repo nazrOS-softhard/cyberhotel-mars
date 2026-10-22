@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import SmartImage from '../components/SmartImage';
 import { rooms } from '../data/rooms';
 
 export default function Rooms() {
@@ -11,10 +10,9 @@ export default function Rooms() {
       <div className="grid sm:grid-cols-2 gap-6">
         {rooms.map((r) => (
           <div key={r.id} className="card-mars overflow-hidden">
-            <SmartImage
-              query={r.imageQuery}
+            <img
+              src={`/room-${r.id}.png`}
               alt={r.name}
-              seed={r.id}
               className="w-full h-52 object-cover"
             />
             <div className="p-6">
