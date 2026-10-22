@@ -1,5 +1,3 @@
-import SmartImage from '../components/SmartImage';
-
 const stats = [
   { value: '2023', label: 'Год основания' },
   { value: '24/7', label: 'Работаем' },
@@ -35,11 +33,14 @@ export default function About() {
             </p>
           </div>
         </div>
-        <SmartImage
-          query="futuristic hotel building night neon exterior"
-          alt="МАРС снаружи"
-          className="rounded-md w-full h-80 object-cover"
+        
+        {/* Заменённый блок с картинкой */}
+        <img
+          src="/about-hotel.png"
+          alt="Схема кибер-отеля МАРС"
+          className="rounded-md w-full h-80 object-cover border border-mars-line"
         />
+        
       </div>
     </div>
   );
