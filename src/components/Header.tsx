@@ -18,8 +18,17 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-mars-bg/90 backdrop-blur border-b border-mars-line">
       <div className="container-mars flex items-center justify-between h-16">
-        <Link to="/" className="text-2xl font-display text-mars-red tracking-wide">
-          МАРС
+        
+        {/* ЛОГОТИП С АНИМАЦИЕЙ */}
+        <Link to="/" className="flex items-center gap-3 group">
+          <img 
+            src="/logo-mars.png" 
+            alt="МАРС" 
+            className="h-8 w-auto animate-pulse group-hover:scale-110 transition-transform duration-300" 
+          />
+          <span className="text-2xl font-display text-mars-red tracking-wide group-hover:text-white transition-colors">
+            МАРС
+          </span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-6 text-sm">
