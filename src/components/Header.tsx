@@ -22,7 +22,7 @@ export default function Header() {
         {/* ЛОГОТИП С АНИМАЦИЕЙ */}
         <Link to="/" className="flex items-center gap-3 group">
           <img 
-            src="/logo-mars.png" 
+            src="/logo-mars.svg" 
             alt="МАРС" 
             className="h-8 w-auto animate-pulse group-hover:scale-110 transition-transform duration-300" 
           />
