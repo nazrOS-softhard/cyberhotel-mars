@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import HeroSlider from '../components/HeroSlider';
-import SmartImage from '../components/SmartImage';
 import { rooms } from '../data/rooms';
 
 const stats = [
@@ -44,10 +43,9 @@ export default function Home() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {rooms.map((r) => (
             <Link to="/rooms" key={r.id} className="card-mars overflow-hidden group">
-              <SmartImage
-                query={r.imageQuery}
+              <img
+                src={`/room-${r.id}.png`}
                 alt={r.name}
-                seed={r.id}
                 className="w-full h-40 object-cover group-hover:opacity-80 transition-opacity"
               />
               <div className="p-4">
