@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { dailyMenus, dietDescriptions, dietLabels, DietType, Dish } from '../data/menu';
+import { dailyMenus, dietDescriptions, dietLabels, DietType, Dish, sponsorProducts } from '../data/menu';
 
 const mealLabels = {
   breakfast: 'Завтрак',
@@ -7,22 +7,21 @@ const mealLabels = {
   dinner: 'Ужин',
 } as const;
 
-// Обновленная привязка картинок
 const imageMap: Record<DietType, Record<string, string>> = {
   traditional: {
-    breakfast: '/rac_1.jpg', // Овсянка
-    lunch: '/rac_5.jpg',     // Говядина с рисом/гречкой (плов)
-    dinner: '/rac_4.jpg',    // Форель со скрэмблом
+    breakfast: '/rac_1.jpg',
+    lunch: '/rac_5.jpg',
+    dinner: '/rac_4.jpg',
   },
   halal: {
-    breakfast: '/rac_3.jpg', // Паста
-    lunch: '/rac_5.jpg',     // Плов
-    dinner: '/rac_6.jpg',    // Курица с овощами
+    breakfast: '/rac_3.jpg',
+    lunch: '/rac_5.jpg',
+    dinner: '/rac_6.jpg',
   },
   vegetarian: {
-    breakfast: '/rac_1.jpg', // Овсянка
-    lunch: '/rac_2.jpg',     // Салат с нутом
-    dinner: '/rac_2.jpg',    // Салат с нутом
+    breakfast: '/rac_1.jpg',
+    lunch: '/rac_2.jpg',
+    dinner: '/rac_2.jpg',
   },
 };
 
@@ -31,22 +30,27 @@ export default function Menu() {
   const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
   const [selectedMealLabel, setSelectedMealLabel] = useState<string>('');
   const [selectedImage, setSelectedImage] = useState<string>('');
+  const [showSponsor, setShowSponsor] = useState(false);
 
   const menu = dailyMenus[diet];
+  const sponsor = sponsorProducts[diet];
   const meals = ['breakfast', 'lunch', 'dinner'] as const;
 
   useEffect(() => {
-    if (selectedDish) {
+    if (selectedDish || showSponsor) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
     return () => { document.body.style.overflow = 'unset'; };
-  }, [selectedDish]);
+  }, [selectedDish, showSponsor]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedDish(null);
+      if (e.key === 'Escape') {
+        setSelectedDish(null);
+        setShowSponsor(false);
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -63,7 +67,7 @@ export default function Menu() {
       <h1 className="text-3xl font-display mb-2">МЕНЮ ПИТАНИЯ</h1>
       <p className="text-white/50 mb-8">
         Трёхразовое питание для гостей МАРС — совместно с{' '}
-        <span className="text-fff-green">Fitness Food Factory</span>
+        <span className="text-fff-green font-semibold">Fitness Food Factory</span>
       </p>
 
       <div className="flex flex-wrap gap-3 mb-10">
@@ -86,7 +90,7 @@ export default function Menu() {
         {dietDescriptions[diet]}
       </p>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-3 gap-6 mb-10">
         {meals.map((m) => {
           const dish = menu[m];
           const imageSrc = imageMap[diet][m];
@@ -98,16 +102,9 @@ export default function Menu() {
               className="card-mars overflow-hidden flex flex-col group cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(220,38,38,0.2)] border border-transparent hover:border-mars-red/50 bg-[#111]"
             >
               <div className="w-full h-48 bg-mars-line overflow-hidden relative">
-                <img
-                  src={imageSrc}
-                  alt={dish.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  loading="lazy"
-                />
+                <img src={imageSrc} alt={dish.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
-                  <span className="text-white font-display text-sm border border-white/30 px-4 py-2 rounded-sm bg-black/50">
-                    Подробнее
-                  </span>
+                  <span className="text-white font-display text-sm border border-white/30 px-4 py-2 rounded-sm bg-black/50">Подробнее</span>
                 </div>
               </div>
               <div className="p-5 flex flex-col flex-grow">
@@ -124,68 +121,86 @@ export default function Menu() {
         })}
       </div>
 
-      <div className="mt-10 card-mars p-6 flex items-center gap-4 border border-mars-line bg-[#111]">
-        <div className="w-10 h-10 rounded-sm bg-fff-green shrink-0 shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
-        <div>
-          <div className="font-display text-sm mb-1 text-white">Перекус от спонсора</div>
-          <div className="text-white/60 text-sm">{menu.snackBar}</div>
+      <div 
+        onClick={() => setShowSponsor(true)}
+        className="card-mars p-6 flex items-center gap-6 border border-mars-line bg-[#111] cursor-pointer group hover:border-fff-green/50 hover:shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-300"
+      >
+        <div className="w-16 h-16 rounded-sm bg-white/5 flex items-center justify-center p-2 shrink-0 group-hover:scale-110 transition-transform duration-300">
+          <img src={sponsor.image} alt={sponsor.name} className="w-full h-full object-contain" />
+        </div>
+        <div className="flex-grow">
+          <div className="text-xs text-fff-green font-semibold uppercase tracking-wider mb-1">Перекус от спонсора</div>
+          <div className="font-display text-lg text-white mb-1 group-hover:text-fff-green transition-colors">{sponsor.name}</div>
+          <div className="text-white/50 text-sm line-clamp-1">{sponsor.description}</div>
+        </div>
+        <div className="text-white/30 group-hover:text-white/70 transition-colors hidden md:block">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
       </div>
 
+      {/* ПОПАП ЕДЫ */}
       {selectedDish && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-[fadeIn_0.3s_ease-out]"
-          onClick={() => setSelectedDish(null)}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="bg-[#111] border border-mars-line rounded-lg w-full max-w-3xl overflow-hidden shadow-[0_0_50px_rgba(220,38,38,0.3)] flex flex-col md:flex-row relative animate-[zoomIn_0.3s_ease-out]"
-          >
-            <button
-              onClick={() => setSelectedDish(null)}
-              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center bg-black/60 border border-white/20 rounded-full text-white/70 hover:text-white hover:border-mars-red hover:bg-mars-red transition-all"
-            >
-              ✕
-            </button>
-
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-[fadeIn_0.3s_ease-out]" onClick={() => setSelectedDish(null)}>
+          <div onClick={(e) => e.stopPropagation()} className="bg-[#111] border border-mars-line rounded-lg w-full max-w-3xl overflow-hidden shadow-[0_0_50px_rgba(220,38,38,0.3)] flex flex-col md:flex-row relative animate-[zoomIn_0.3s_ease-out]">
+            <button onClick={() => setSelectedDish(null)} className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center bg-black/60 border border-white/20 rounded-full text-white/70 hover:text-white hover:border-mars-red hover:bg-mars-red transition-all">✕</button>
             <div className="w-full md:w-1/2 h-64 md:h-auto relative">
               <img src={selectedImage} alt={selectedDish.name} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent md:bg-gradient-to-r" />
             </div>
-
             <div className="p-6 md:p-8 w-full md:w-1/2 flex flex-col relative z-10">
               <div className="text-xs text-mars-red uppercase mb-2 font-semibold tracking-wider">{selectedMealLabel}</div>
               <h2 className="font-display text-2xl text-white mb-3">{selectedDish.name}</h2>
               <p className="text-white/60 text-sm mb-6">{selectedDish.description}</p>
-
               <div className="grid grid-cols-4 gap-2 mb-6">
-                <div className="bg-black/50 border border-mars-line rounded p-2 text-center">
-                  <div className="text-white font-bold">{selectedDish.kcal}</div>
-                  <div className="text-white/40 text-[10px] uppercase">Ккал</div>
-                </div>
-                <div className="bg-black/50 border border-mars-line rounded p-2 text-center">
-                  <div className="text-fff-green font-bold">{selectedDish.protein || '-'}г</div>
-                  <div className="text-white/40 text-[10px] uppercase">Белки</div>
-                </div>
-                <div className="bg-black/50 border border-mars-line rounded p-2 text-center">
-                  <div className="text-yellow-500 font-bold">{selectedDish.fat || '-'}г</div>
-                  <div className="text-white/40 text-[10px] uppercase">Жиры</div>
-                </div>
-                <div className="bg-black/50 border border-mars-line rounded p-2 text-center">
-                  <div className="text-blue-400 font-bold">{selectedDish.carbs || '-'}г</div>
-                  <div className="text-white/40 text-[10px] uppercase">Углеводы</div>
-                </div>
+                <div className="bg-black/50 border border-mars-line rounded p-2 text-center"><div className="text-white font-bold">{selectedDish.kcal}</div><div className="text-white/40 text-[10px] uppercase">Ккал</div></div>
+                <div className="bg-black/50 border border-mars-line rounded p-2 text-center"><div className="text-fff-green font-bold">{selectedDish.protein || '-'}г</div><div className="text-white/40 text-[10px] uppercase">Белки</div></div>
+                <div className="bg-black/50 border border-mars-line rounded p-2 text-center"><div className="text-yellow-500 font-bold">{selectedDish.fat || '-'}г</div><div className="text-white/40 text-[10px] uppercase">Жиры</div></div>
+                <div className="bg-black/50 border border-mars-line rounded p-2 text-center"><div className="text-blue-400 font-bold">{selectedDish.carbs || '-'}г</div><div className="text-white/40 text-[10px] uppercase">Углеводы</div></div>
               </div>
-
               <div>
                 <h4 className="text-white/80 text-xs uppercase tracking-wider mb-2 font-semibold">Состав:</h4>
                 <ul className="flex flex-wrap gap-2">
                   {selectedDish.ingredients?.map((ing, idx) => (
-                    <li key={idx} className="text-xs text-white/60 bg-mars-line/30 px-2 py-1 rounded-sm border border-mars-line/50">
-                      {ing}
+                    <li key={idx} className="text-xs text-white/60 bg-mars-line/30 px-2 py-1 rounded-sm border border-mars-line/50">{ing}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ПОПАП СПОНСОРА */}
+      {showSponsor && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-[fadeIn_0.3s_ease-out]" onClick={() => setShowSponsor(false)}>
+          <div onClick={(e) => e.stopPropagation()} className="bg-[#111] border border-mars-line rounded-lg w-full max-w-4xl overflow-hidden shadow-[0_0_50px_rgba(34,197,94,0.2)] flex flex-col md:flex-row relative animate-[zoomIn_0.3s_ease-out]">
+            <button onClick={() => setShowSponsor(false)} className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center bg-black/60 border border-white/20 rounded-full text-white/70 hover:text-white hover:border-fff-green hover:bg-fff-green hover:text-black transition-all">✕</button>
+            
+            <div className="w-full md:w-1/2 bg-white/5 p-8 flex items-center justify-center relative">
+              <img src={sponsor.image} alt={sponsor.name} className="max-h-[400px] w-auto object-contain drop-shadow-2xl" />
+            </div>
+
+            <div className="p-6 md:p-8 w-full md:w-1/2 flex flex-col relative z-10">
+              <div className="text-xs text-fff-green uppercase mb-2 font-semibold tracking-wider">Fitness Food Factory</div>
+              <h2 className="font-display text-3xl text-white mb-4">{sponsor.name}</h2>
+              <p className="text-white/60 text-sm mb-6 leading-relaxed">{sponsor.description}</p>
+              
+              <div className="mb-6">
+                <h4 className="text-white/80 text-xs uppercase tracking-wider mb-3 font-semibold">Преимущества:</h4>
+                <ul className="space-y-2">
+                  {sponsor.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm text-white/70">
+                      <span className="text-fff-green">✓</span> {feature}
                     </li>
                   ))}
                 </ul>
+              </div>
+
+              <div className="bg-black/40 border border-mars-line rounded-lg p-4">
+                <div className="text-xs text-white/40 uppercase tracking-wider mb-1">Пищевая ценность:</div>
+                <div className="text-white/80 text-sm mb-3">{sponsor.nutrition}</div>
+                <div className="text-xs text-white/40 uppercase tracking-wider mb-1">Форма выпуска:</div>
+                <div className="text-white/80 text-sm">{sponsor.volume}</div>
               </div>
             </div>
           </div>
