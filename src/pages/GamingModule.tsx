@@ -23,7 +23,7 @@ const specs = [
   { 
     title: 'Механические клавиатуры', 
     desc: 'Быстрый отклик и точность управления.' 
-  },
+  }, 
   { 
     title: 'Профессиональные игровые кресла', 
     desc: 'Эргономика и комфорт даже во время длительных игровых сессий.' 
@@ -34,8 +34,7 @@ const specs = [
   },
 ];
 
-// ВНИМАНИЕ: Я убрал termo.png из карточек, так как это термобутылка.
-// Если у тебя нет картинки монитора, он будет отображаться с заглушкой.
+// Массив карточек
 const peripherals: Peripheral[] = [
   { id: 'pc', name: 'Игровой ПК', img: '/gaming-main.png', description: 'Флагманская сборка на базе NVIDIA RTX' },
   { id: 'monitor', name: 'Монитор 27" 360Гц', img: '', description: 'Максимальная плавность и отклик' }, // Нет картинки
@@ -44,7 +43,7 @@ const peripherals: Peripheral[] = [
   { id: 'mouse', name: 'Мышь', img: '/mouse.png', description: 'Точность на пределе возможного' },
 ];
 
-// --- КОМПОНЕНТ КАРТОЧКИ С АНИМАЦИЕЙ И HOVER ---
+// --- КОМПОНЕНТ КАРТОЧКИ ---
 const PeripheralCard = ({ item, onClick }: { item: Peripheral; onClick: () => void }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -52,32 +51,31 @@ const PeripheralCard = ({ item, onClick }: { item: Peripheral; onClick: () => vo
     <motion.div
       layoutId={`card-${item.id}`}
       onClick={onClick}
-      className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer bg-[#0f0f12] border border-[#1f1f23] hover:border-mars-red/50 transition-colors duration-300"
+      className="group relative h-full w-full rounded-xl overflow-hidden cursor-pointer bg-[#0f0f12] border border-[#1f1f23] hover:border-mars-red/50 transition-colors duration-300"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      {/* Скелетон загрузки (показывается, пока картинка не загрузилась) */}
+      {/* Скелетон загрузки */}
       {!isLoaded && (
         <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1f] to-[#2a2a30] animate-pulse" />
       )}
       
-      {/* Сама картинка */}
+      {/* Картинка */}
       {item.img ? (
         <img
           src={item.img}
           alt={item.name}
           onLoad={() => setIsLoaded(true)}
-          className={`w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          className={`w-full h-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
         />
       ) : (
-        // Заглушка, если картинки нет
         <div className="absolute inset-0 flex items-center justify-center bg-[#111118]">
           <span className="text-[10px] text-white/20 font-mono uppercase">No Image</span>
         </div>
       )}
 
-      {/* Градиентный оверлей для читаемости текста */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Градиентный оверлей */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       {/* Блик при наведении */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent" />
@@ -171,7 +169,7 @@ export default function GamingModule() {
       </motion.h2>
       
       <motion.div 
-        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 auto-rows-[220px]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
@@ -194,7 +192,7 @@ export default function GamingModule() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
           >
-            {/* Задний фон (размытие + затемнение) */}
+            {/* Задний фон */}
             <div 
               className="absolute inset-0 bg-black/80 backdrop-blur-md"
               onClick={() => setSelectedPeripheral(null)}
@@ -205,7 +203,7 @@ export default function GamingModule() {
               layoutId={`card-${selectedPeripheral.id}`}
               ref={modalRef}
               className="relative w-full max-w-4xl bg-[#0f0f12] border border-[#2a2a30] rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(255,42,42,0.15)]"
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()} 
             >
               {/* Кнопка закрытия */}
               <button
