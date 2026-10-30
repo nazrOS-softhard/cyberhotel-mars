@@ -57,10 +57,10 @@ export const dailyMenus: Record<DietType, DailyMenu> = {
     },
     dinner: {
       name: 'Форель со скрэмблом',
-      description: 'Запечённая форель, яичный скрэмбл, свежий шпинат, томаты.',
+      description: 'Запечённая форель, яичный скрэмбл, свежая рукола, томаты.',
       imageQuery: 'salmon quinoa',
       kcal: 590, protein: 38, fat: 25, carbs: 15,
-      ingredients: ['Филе форели', 'Яйца', 'Шпинат', 'Томаты черри', 'Сливочное масло'],
+      ingredients: ['Филе форели', 'Яйца', 'Рукола', 'Томаты черри', 'Сливочное масло'],
     },
     snackBar: 'Протеиновый батончик Fitness Food Factory (классический)',
   },
