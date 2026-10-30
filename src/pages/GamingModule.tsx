@@ -1,7 +1,7 @@
 const specs = [
   { 
     title: 'Флагманские игровые ПК', 
-    desc: 'Производительные процессоры на базе видеокарт NVIDIA GeForce RTX. Максимальная производительность в современных играх и прилах.' 
+    desc: 'Производительные процессоры и видеокарты NVIDIA GeForce RTX. Максимальная производительность в современных играх.' 
   },
   { 
     title: 'Мониторы 27″ — до 360 Гц', 
@@ -9,7 +9,7 @@ const specs = [
   },
   { 
     title: 'Механические клавиатуры', 
-    desc: 'Беспроводные с точностью управления.' 
+    desc: 'Быстрый отклик и точность управления.' 
   },
   { 
     title: 'Профессиональные игровые кресла', 
@@ -17,8 +17,17 @@ const specs = [
   },
   { 
     title: 'Премиальная периферия', 
-    desc: 'Беспроводные игровые мыши, гарнитуры и большие коврики.' 
+    desc: 'Игровые мыши, гарнитуры и большие коврики.' 
   },
+];
+
+// Массив с картинками для блока "В каждом номере"
+const peripherals = [
+  { name: 'Игровой ПК', img: '/gaming-main.png' }, // Или можно поставить специальную картинку для ПК, если есть
+  { name: 'Монитор 27" 360Гц', img: '/termo.png' }, // Если termo это монитор. Если нет - скажи, поменяю
+  { name: 'Наушники', img: '/ushi.png' },
+  { name: 'Клавиатура', img: '/key.png' },
+  { name: 'Мышь', img: '/mouse.png' },
 ];
 
 export default function GamingModule() {
@@ -28,7 +37,6 @@ export default function GamingModule() {
       <p className="text-white/50 mb-10">Топовое оборудование. Без компромиссов.</p>
 
       <div className="grid md:grid-cols-2 gap-10 items-start">
-        {/* БОЛЬШАЯ КАРТИНКА СЛЕВА */}
         <img
           src="/gaming-main.png"
           alt="Игровой модуль МАРС"
@@ -50,16 +58,14 @@ export default function GamingModule() {
 
       <h2 className="text-xl font-display mt-16 mb-6">В каждом номере</h2>
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
-        {['Игровой ПК', 'Монитор 27" 360Гц', 'Наушники', 'Клавиатура', 'Мышь'].map((item, i) => (
-          <div key={item} className="card-mars p-4 text-center">
-            {/* ВРЕМЕННАЯ ЗАГЛУШКА (Цветной блок) для маленьких карточек */}
-            <div 
-              className="w-full h-20 rounded-sm mb-2 opacity-80 flex items-center justify-center"
-              style={{ background: `hsl(${i * 60}, 40%, 15%)` }}
-            >
-              <span className="text-[10px] text-white/30 font-mono px-1 text-center">{item}</span>
-            </div>
-            <div className="text-xs text-white/70">{item}</div>
+        {peripherals.map((item, i) => (
+          <div key={item.name} className="card-mars p-4 text-center">
+            <img
+              src={item.img}
+              alt={item.name}
+              className="w-full h-20 object-cover rounded-sm mb-2 opacity-80"
+            />
+            <div className="text-xs text-white/70">{item.name}</div>
           </div>
         ))}
       </div>
