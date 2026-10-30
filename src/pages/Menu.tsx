@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// Убрали SmartImage, так как теперь используем реальные фото
+// Импортируем нужные данные из вашего файла
 import { dailyMenus, dietDescriptions, dietLabels, DietType } from '../data/menu';
 
 const mealLabels = {
@@ -9,28 +9,27 @@ const mealLabels = {
 } as const;
 
 export default function Menu() {
-  // Добавляем новые типы диет для фильтрации
   const [diet, setDiet] = useState<DietType>('traditional');
   const menu = dailyMenus[diet];
   const meals = ['breakfast', 'lunch', 'dinner'] as const;
 
-  // Маппинг картинок для каждого типа диеты и приема пищи
-  // Используем файлы, которые вы прислали на скриншоте
+  // Маппинг: какие файлы картинок привязать к каким диетам и приемам пищи.
+  // Названия файлов взяты с вашего скриншота.
   const imageMap: Record<DietType, Record<string, string>> = {
     traditional: {
       breakfast: '/images/rac_1.jpg',
-      lunch: '/images/rac_2.jpg',
-      dinner: '/images/rac_3.jpg',
-    },
-    vegetarian: {
-      breakfast: '/images/rac_4.jpg',
-      lunch: '/images/rac_5.jpg',
-      dinner: '/images/rac_6.jpg',
+      lunch: '/images/rac_3.jpg',
+      dinner: '/images/rac_4.jpg',
     },
     halal: {
-      breakfast: '/images/rac_2.jpg', // Замените на нужные пути
-      lunch: '/images/rac_3.jpg',
-      dinner: '/images/rac_1.jpg',
+      breakfast: '/images/rac_6.jpg',
+      lunch: '/images/rac_1.jpg', // Поменяйте на те, что больше подходят
+      dinner: '/images/rac_5.jpg',
+    },
+    vegetarian: {
+      breakfast: '/images/rac_2.jpg',
+      lunch: '/images/rac_4.jpg',
+      dinner: '/images/rac_6.jpg',
     },
   };
 
@@ -42,7 +41,7 @@ export default function Menu() {
         <span className="text-fff-green">Fitness Food Factory</span>
       </p>
 
-      {/* Блок фильтров */}
+      {/* Фильтры (Классическое / Халяль / Вегетарианское) */}
       <div className="flex flex-wrap gap-3 mb-10">
         {(Object.keys(dietLabels) as DietType[]).map((d) => (
           <button
@@ -64,12 +63,12 @@ export default function Menu() {
       <div className="grid md:grid-cols-3 gap-6">
         {meals.map((m) => {
           const dish = menu[m];
-          // Берем картинку из нашего маппинга, если нет — фолбэк
-          const imageSrc = imageMap[diet]?.[m] || '/images/rac_1.jpg';
+          // Берем нужную картинку из маппинга. Если вдруг нет — ставим первую попавшуюся.
+          const imageSrc = imageMap[diet][m] || '/images/rac_1.jpg';
 
           return (
             <div key={m} className="card-mars overflow-hidden flex flex-col">
-              {/* Заменили SmartImage на обычный img */}
+              {/* Обычный тег img вместо SmartImage */}
               <img
                 src={imageSrc}
                 alt={dish.name}
