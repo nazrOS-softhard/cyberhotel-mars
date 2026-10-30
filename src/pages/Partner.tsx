@@ -9,7 +9,7 @@ const values = [
 ];
 
 export default function Partner() {
-  // Превращаем объект с продуктами в массив для удобного вывода
+  // Превращаем объект с продуктами в массив
   const products = Object.values(sponsorProducts);
 
   return (
@@ -41,7 +41,6 @@ export default function Partner() {
       <section className="container-mars py-16">
         <h2 className="text-xl font-display mb-8">Продукция</h2>
         
-        {/* Сетка продуктов */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
           {products.map((p) => (
             <div key={p.name} className="card-mars overflow-hidden flex flex-col group">
@@ -56,8 +55,6 @@ export default function Partner() {
               <div className="p-4 flex flex-col flex-grow border-t border-mars-line">
                 <div className="font-display text-sm mb-2">{p.name}</div>
                 <div className="text-white/50 text-xs mb-3 flex-grow line-clamp-2">{p.description}</div>
-                
-                {/* Пищевая ценность (кратко) */}
                 <div className="text-xs text-white/40 mt-auto border-t border-white/10 pt-2">
                    {p.nutrition}
                 </div>
