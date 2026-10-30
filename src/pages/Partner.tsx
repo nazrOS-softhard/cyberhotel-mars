@@ -1,12 +1,5 @@
 import { Link } from 'react-router-dom';
-import SmartImage from '../components/SmartImage';
-
-const products = [
-  { name: 'Isotonic Water Lemon-Lime', desc: 'Изотоник без сахара, электролиты, вкус лимон-лайм.', imageQuery: 'green sports drink bottle lemon lime' },
-  { name: 'Isotonic Water Apple-Pear', desc: 'Изотоник без сахара, яблоко-груша.', imageQuery: 'yellow sports drink bottle apple' },
-  { name: 'Isotonic Water Cherry-Cranberry', desc: 'Изотоник без сахара, вишня-клюква.', imageQuery: 'red sports drink bottle cherry' },
-  { name: 'HAUNT Green Melon', desc: 'Энергетический напиток, ноль сахара, зелёная дыня.', imageQuery: 'green energy drink can neon skull' },
-];
+import { sponsorProducts } from '../data/menu';
 
 const values = [
   { title: 'Энергия и функциональность', icon: '⚡' },
@@ -16,6 +9,9 @@ const values = [
 ];
 
 export default function Partner() {
+  // Превращаем объект с продуктами в массив для удобного вывода
+  const products = Object.values(sponsorProducts);
+
   return (
     <div>
       <section className="bg-fff-black">
@@ -25,8 +21,12 @@ export default function Partner() {
           <p className="text-white/60 max-w-xl mb-8">
             Fitness Food Factory — это энергия, технологии и забота о себе.
             Функциональные напитки и продукты для активных людей, которые
-            выбирают качество, движение и осознанный образ жизни. <a href="https://fitnessfoodfactory.ru/" target="_blank" rel="noopener noreferrer" className="text-fff-green underline underline-offset-2 hover:text-white">fitnessfoodfactory.ru</a>
+            выбирают качество, движение и осознанный образ жизни.{' '}
+            <a href="https://fitnessfoodfactory.ru/" target="_blank" rel="noopener noreferrer" className="text-fff-green underline underline-offset-2 hover:text-white">
+              fitnessfoodfactory.ru
+            </a>
           </p>
+          
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
             {values.map((v) => (
               <div key={v.title} className="border border-white/10 rounded-md p-4 text-center">
@@ -40,13 +40,27 @@ export default function Partner() {
 
       <section className="container-mars py-16">
         <h2 className="text-xl font-display mb-8">Продукция</h2>
+        
+        {/* Сетка продуктов */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
           {products.map((p) => (
-            <div key={p.name} className="card-mars overflow-hidden">
-              <SmartImage query={p.imageQuery} alt={p.name} seed={p.name} className="w-full h-40 object-cover" />
-              <div className="p-4">
-                <div className="font-display text-sm mb-1">{p.name}</div>
-                <div className="text-white/50 text-xs">{p.desc}</div>
+            <div key={p.name} className="card-mars overflow-hidden flex flex-col group">
+              <div className="w-full h-48 bg-white/5 p-4 flex items-center justify-center relative overflow-hidden">
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+              </div>
+              <div className="p-4 flex flex-col flex-grow border-t border-mars-line">
+                <div className="font-display text-sm mb-2">{p.name}</div>
+                <div className="text-white/50 text-xs mb-3 flex-grow line-clamp-2">{p.description}</div>
+                
+                {/* Пищевая ценность (кратко) */}
+                <div className="text-xs text-white/40 mt-auto border-t border-white/10 pt-2">
+                   {p.nutrition}
+                </div>
               </div>
             </div>
           ))}
@@ -60,7 +74,9 @@ export default function Partner() {
               с перекусами и напитками от Fitness Food Factory в каждом.
             </p>
           </div>
-          <Link to="/menu" className="btn-primary whitespace-nowrap">Смотреть меню</Link>
+          <Link to="/menu" className="px-6 py-3 bg-mars-red text-black font-semibold text-sm rounded-sm hover:bg-white hover:text-mars-red transition-colors whitespace-nowrap">
+            Смотреть меню
+          </Link>
         </div>
       </section>
     </div>
