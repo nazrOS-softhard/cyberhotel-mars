@@ -7,17 +7,17 @@ const mealLabels = {
   dinner: 'Ужин',
 } as const;
 
-// Жесткая привязка картинок к правильным блюдам
+// Обновленная привязка картинок
 const imageMap: Record<DietType, Record<string, string>> = {
   traditional: {
     breakfast: '/rac_1.jpg', // Овсянка
-    lunch: '/rac_4.jpg',     // Мясо с гречкой
-    dinner: '/rac_6.jpg',    // Рыба
+    lunch: '/rac_5.jpg',     // Говядина с рисом/гречкой (плов)
+    dinner: '/rac_4.jpg',    // Форель со скрэмблом
   },
   halal: {
     breakfast: '/rac_3.jpg', // Паста
     lunch: '/rac_5.jpg',     // Плов
-    dinner: '/rac_4.jpg',    // Мясо с гречкой
+    dinner: '/rac_6.jpg',    // Курица с овощами
   },
   vegetarian: {
     breakfast: '/rac_1.jpg', // Овсянка
