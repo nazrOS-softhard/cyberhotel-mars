@@ -7,22 +7,22 @@ const mealLabels = {
   dinner: 'Ужин',
 } as const;
 
-// Правильная логическая привязка ваших 6 фото
+// Жесткая привязка картинок к правильным блюдам
 const imageMap: Record<DietType, Record<string, string>> = {
   traditional: {
-    breakfast: '/rac_1.jpg', // Овсянка с ягодами
-    lunch: '/rac_4.jpg',     // Мясо с рисом/овощами
-    dinner: '/rac_6.jpg',    // Рыба с гарниром
+    breakfast: '/rac_1.jpg', // Овсянка
+    lunch: '/rac_4.jpg',     // Мясо с гречкой
+    dinner: '/rac_6.jpg',    // Рыба
   },
   halal: {
-    breakfast: '/rac_3.jpg', // Макароны/курица
-    lunch: '/rac_5.jpg',     // Плов с рисом и мясом
-    dinner: '/rac_4.jpg',    // Курица с овощами
+    breakfast: '/rac_3.jpg', // Паста
+    lunch: '/rac_5.jpg',     // Плов
+    dinner: '/rac_4.jpg',    // Мясо с гречкой
   },
   vegetarian: {
-    breakfast: '/rac_1.jpg', // Овсянка (как растительный завтрак)
+    breakfast: '/rac_1.jpg', // Овсянка
     lunch: '/rac_2.jpg',     // Салат с нутом
-    dinner: '/rac_2.jpg',    // Овощной боул
+    dinner: '/rac_2.jpg',    // Салат с нутом
   },
 };
 
@@ -35,7 +35,6 @@ export default function Menu() {
   const menu = dailyMenus[diet];
   const meals = ['breakfast', 'lunch', 'dinner'] as const;
 
-  // Блокировка скролла при открытом попапе
   useEffect(() => {
     if (selectedDish) {
       document.body.style.overflow = 'hidden';
@@ -45,7 +44,6 @@ export default function Menu() {
     return () => { document.body.style.overflow = 'unset'; };
   }, [selectedDish]);
 
-  // Закрытие по Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setSelectedDish(null);
@@ -68,7 +66,6 @@ export default function Menu() {
         <span className="text-fff-green">Fitness Food Factory</span>
       </p>
 
-      {/* Фильтры */}
       <div className="flex flex-wrap gap-3 mb-10">
         {(Object.keys(dietLabels) as DietType[]).map((d) => (
           <button
@@ -89,7 +86,6 @@ export default function Menu() {
         {dietDescriptions[diet]}
       </p>
 
-      {/* Сетка карточек */}
       <div className="grid md:grid-cols-3 gap-6">
         {meals.map((m) => {
           const dish = menu[m];
@@ -128,7 +124,6 @@ export default function Menu() {
         })}
       </div>
 
-      {/* Перекус */}
       <div className="mt-10 card-mars p-6 flex items-center gap-4 border border-mars-line bg-[#111]">
         <div className="w-10 h-10 rounded-sm bg-fff-green shrink-0 shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
         <div>
@@ -137,7 +132,6 @@ export default function Menu() {
         </div>
       </div>
 
-      {/* --- МОДАЛЬНОЕ ОКНО (POPUP) на чистом CSS --- */}
       {selectedDish && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-[fadeIn_0.3s_ease-out]"
