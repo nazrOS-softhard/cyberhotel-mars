@@ -1,44 +1,5 @@
 import { Link } from 'react-router-dom';
-
-// Данные услуг с привязкой к вашим реальным картинкам из папки public
-const servicesData = [
-  {
-    id: 'cybersport',
-    title: 'Киберспорт',
-    description: 'Соревнования, турниры, ивенты.',
-    image: '/uslug_PC.png', 
-  },
-  {
-    id: 'stream-studio',
-    title: 'Стрим-студия',
-    description: 'Запись и трансляции высокого качества.',
-    image: '/uslug_live.png', 
-  },
-  {
-    id: 'lounge',
-    title: 'Зона отдыха',
-    description: 'Кафе, лаунж, настольные игры.',
-    image: '/uslug_otdih.png', 
-  },
-  {
-    id: 'pc-rent',
-    title: 'Прокат ПК',
-    description: 'Игровые станции на время.',
-    image: '/uslug_boot.png', 
-  },
-  {
-    id: 'storage',
-    title: 'Хранение',
-    description: 'Безопасное хранение оборудования.',
-    image: '/uslug_save.png', 
-  },
-  {
-    id: 'additional',
-    title: 'Доп. услуги',
-    description: 'Консьерж, трансфер, прачечная и другое.',
-    image: '/uslug_host.png', 
-  },
-];
+import { services } from '../data/services'; // Импортируем данные оттуда
 
 export default function Services() {
   return (
@@ -48,16 +9,16 @@ export default function Services() {
 
       {/* Сетка услуг */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
-        {servicesData.map((s) => (
+        {services.map((s) => (
           <Link
-            to={`/services/${s.id}`}
+            to={`/services/${s.id}`} // ID теперь берется из services.ts
             key={s.id}
             className="card-mars overflow-hidden flex flex-col group cursor-pointer hover:border-mars-red/50 transition-colors duration-300"
           >
             {/* Картинка с эффектом при наведении */}
             <div className="w-full h-48 bg-mars-line overflow-hidden relative">
               <img
-                src={s.image}
+                src={s.image} // Используем картинку из services.ts
                 alt={s.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
